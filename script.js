@@ -17307,7 +17307,7 @@ window.onHBLoaded = () => {
         roomName: NombreHost,
         password: PasswordDelHost,
         maxPlayers: maxPlayers,
-        token: "thr1.AAAAAGcJeAmOryx-zN5o4g.pPH611d1Gyk",
+        token: "thr1.AAAAAGcJvBtm_OWCKrLA_w.4v9LGLmctsY",
         public: roomPublic,
         noPlayer: true
     };
