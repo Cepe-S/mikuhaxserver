@@ -10,7 +10,7 @@ window.onHBLoaded = () => {
     var ClaveParaSerAdmin = "yoadmin";  	// Clave para ser administrador. Pon la contraseña entre comillas.
     
     
-    var MapaPorDefecto = "Futsal x7"; // OPCIONES: Futsal x2, Futsal x3, Futsal x4, Futsal x5, Futsal x5 cesped, Futsal x7, Real Soccer, Real Soccer Evo, Real Futsal, Entrenamiento, Basquet, Mini RS, Campeones, Premios, Big, Voley 2d, Voley 3d, Escuela, Skate, Handball, Tenis Ladrillo, Tenis Pasto, Tenis Cemento, RS Realista, RS Oveja, Penales Red, Penales Blue, 2 Man, 3 Man, 4 Man, 5 Man, 6 Man, 7 Man, 8 Man
+    var MapaPorDefecto = "Futsal x7";
     
     
     var TiempoDeJuego = 10;  		// Duración por defecto de las partidas (En minutos)
@@ -101,7 +101,7 @@ window.onHBLoaded = () => {
     
     
     // Weebhook para anunciar que has abierto una sala. Reemplaza con tu propia URL de webhook.
-    var AnuncioHostAbierto = "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL";
+    var AnuncioHostAbierto = "" // "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL";
     var MensajeHostAbierto = 
     ``;
     var TagHostAbierto = "@here"; //  Dejar "@here" o Colocar el "ID del Rol de Discord" al que quieres avisarle que creaste Host
@@ -17307,7 +17307,7 @@ window.onHBLoaded = () => {
         roomName: NombreHost,
         password: PasswordDelHost,
         maxPlayers: maxPlayers,
-        token: "thr1.AAAAAGcJvBtm_OWCKrLA_w.4v9LGLmctsY",
+        token: "thr1.AAAAAGcLIqinUHBPfdqymg.1UlPnzF0uJs",
         public: roomPublic,
         noPlayer: true
     };
