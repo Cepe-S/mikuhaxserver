@@ -19,7 +19,6 @@ class Script:
             for holder, replacement in placeholders.items():
                 # print(f"looking for {holder} in {line}")
                 if holder in line:
-                    print(f"holder found: {holder} in line {line}")
                     # Reemplazar el contenido y actualizar splitedScript en el índice correspondiente
                     line = ' ' * self.getTabulation(line) + replacement
                     splitedScript[i] = line  # Actualizar la línea en splitedScript

@@ -14,11 +14,12 @@ from time import sleep
 
 isServerOpen = False
 
-def createDriver():
+def createDriver() -> webdriver.Chrome:
     chromeOptions = ChromeOptions()
     chromeOptions.add_argument("--no-sandbox")
     chromeOptions.add_argument("--disable-dev-shm-usage")
     chromeOptions.add_argument('--headless')
+    chromeOptions.set_capability("goog:loggingPrefs", {"browser": "ALL"})
 
     if "linux" in platform:
         return webdriver.Chrome(service=ChromeService(executable_path="/usr/bin/chromedriver"), 
@@ -26,24 +27,26 @@ def createDriver():
     
     return webdriver.Chrome(options=chromeOptions)
 
+def get_console_logs(driver: webdriver):
+    logs = driver.get_log("browser")
+    for entry in logs:
+        print(f"{entry['level']}: {entry['message']}")
+
 def runServer():
 
     driver = createDriver()
     driver.get("https://html5.haxball.com/headless")
 
     server1 = Server(stadium=Stadiums.FUTSAL_X7, filepath="files/script.js")
-    # with open("servermodified.js", "w", encoding="utf-8") as file:
-    #     file.write(server1.getScript())
 
     driver.execute_script(server1.getScript())
-    
     sleep(5)
-    WebDriverWait(driver, 10).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//iframe[contains(@src, '30xIZB1N/__cache_static__/g/headless.html')]")))
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "roomlink")))
     pageSource = driver.page_source
     print(pageSource)
-    while (1 != 0):
-        sleep(9000000000)
+
+    while True:
+        get_console_logs(driver)
+        sleep(2)
 
 while not isServerOpen:
     try:
