@@ -11,8 +11,11 @@ from sys import platform
 import regex
 from server_enums.Stadiums import Stadiums
 from time import sleep
+from Logs import Logs
+import datetime
 
 isServerOpen = False
+logger = Logs(datetime.datetime.now())
 
 def createDriver() -> webdriver.Chrome:
     chromeOptions = ChromeOptions()
@@ -27,13 +30,14 @@ def createDriver() -> webdriver.Chrome:
     
     return webdriver.Chrome(options=chromeOptions)
 
-def get_console_logs(driver: webdriver):
+def getConsoleLogs(driver: webdriver):
     logs = driver.get_log("browser")
     for entry in logs:
-        print(f"{entry['level']}: {entry['message']}")
+        log = f"{entry['level']}: {entry['message']}"
+        print(log)
+        logger.addLog(log)
 
 def runServer():
-
     driver = createDriver()
     driver.get("https://html5.haxball.com/headless")
 
@@ -45,7 +49,7 @@ def runServer():
     print(pageSource)
 
     while True:
-        get_console_logs(driver)
+        getConsoleLogs(driver)
         sleep(2)
 
 while not isServerOpen:
