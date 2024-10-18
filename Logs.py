@@ -10,6 +10,6 @@ class Logs:
     def addLog(self, message: str):
         filename = self.getFilename()
         filepath = "logs/" + filename
-        toLog = datetime.datetime.now() + ": " + message + "\n"
+        toLog = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ": " + message + "\n"
         with open(filepath, "a") as logfile:
-            logfile.write(message)
+            logfile.write(toLog)

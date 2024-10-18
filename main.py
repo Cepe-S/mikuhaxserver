@@ -23,6 +23,7 @@ def createDriver() -> webdriver.Chrome:
     chromeOptions.add_argument("--disable-dev-shm-usage")
     chromeOptions.add_argument('--headless')
     chromeOptions.set_capability("goog:loggingPrefs", {"browser": "ALL"})
+    chromeOptions.add_experimental_option("detach", True)
 
     if "linux" in platform:
         return webdriver.Chrome(service=ChromeService(executable_path="/usr/bin/chromedriver"), 
