@@ -96,7 +96,7 @@ window.onHBLoaded = () => {
     // Link del webhook para Grabaciones y Resumenes de las Partidas jugadas. Reemplaza con tu propia URL de webhook.
     const WebhookGrabaciones = "https://discord.com/api/webhooks/1294134671717957763/bEuXT5GqgiqP0HFkQHcFIwPDr6_elMhzF5nUCfWnWSZGI8hzHZ8fbSbEvVRdZ5ca0_1S";
     
-    const GrabacionesDiscord = "https://discord.gg/kBbkVhpk";	// Link del Servidor de Discord donde se subirán las grabaciones de las partidas
+    const GrabacionesDiscord = "discord.gg/2UXsPaHRHq";	// Link del Servidor de Discord donde se subirán las grabaciones de las partidas
     
     
     
@@ -134,7 +134,7 @@ window.onHBLoaded = () => {
     
     // ▇▇▇▇▇▇▇▇▇ REDES SOCIALES ▇▇▇▇▇▇▇▇▇
     
-    const DiscordLink = "discord.gg/kBbkVhpk";	// Link de tu Servidor de Discord
+    const DiscordLink = "discord.gg/2UXsPaHRHq";	// Link de tu Servidor de Discord
     const YoutubeLink = ""; 	// Link de tu canal de Youtube
     const TwitchLink = "";	// Link de tu canal de Twitch
     
