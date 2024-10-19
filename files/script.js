@@ -13,10 +13,10 @@ window.onHBLoaded = () => {
     var MapaPorDefecto = "Futsal x7"; // {{STADIUM}} // OPCIONES: Futsal x2, Futsal x3, Futsal x4, Futsal x5, Futsal x5 cesped, Futsal x7, Real Soccer, Real Soccer Evo, Real Futsal, Entrenamiento, Basquet, Mini RS, Campeones, Premios, Big, Voley 2d, Voley 3d, Escuela, Skate, Handball, Tenis Ladrillo, Tenis Pasto, Tenis Cemento, RS Realista, RS Oveja, Penales Red, Penales Blue, 2 Man, 3 Man, 4 Man, 5 Man, 6 Man, 7 Man, 8 Man
     
     
-    var TiempoDeJuego = 10;  		// Duración por defecto de las partidas (En minutos)
+    var TiempoDeJuego = 10; // {{GAME_TIME}}  		// Duración por defecto de las partidas (En minutos)
     
     
-    var LimiteDeGoles = 5;  		// Limite de Goles por defecto
+    var LimiteDeGoles = 5; // {{GOAL_LIMIT}} 		// Limite de Goles por defecto
     
     
     var TamanoMinimoPermitido = 8;  	// Tamaño mínimo permitido para un jugador 
@@ -25,7 +25,7 @@ window.onHBLoaded = () => {
     var TamanoMaximoPermitido = 15;		 // Tamaño máximo permitido para un jugador
     
     
-    var AdministradoresDelHost = ["miku hatsune"]; 	// Coloca los nicknames de los administradores. EJEMPLO: var AdministradoresDelHost = ["Messi10", "Neymar #11 PSG", "Ronaldinho BRA"];
+    var AdministradoresDelHost = []; 	// Coloca los nicknames de los administradores. EJEMPLO: var AdministradoresDelHost = ["Messi10", "Neymar #11 PSG", "Ronaldinho BRA"];
     var contrasena = "reservado"; 		// Contraseña para reservar el espacio a los Administradores
     
     
@@ -51,7 +51,7 @@ window.onHBLoaded = () => {
     var BanearIPsDuplicadas = "Si"; // Cambia "Si" por "No" si no deseas banear IPs duplicadas
     
     
-    var MostrarIps = "No"; // Cambia "Si" por "No" si no deseas mostrar las IPs a los administradores cuando un jugador se una a la sala
+    var MostrarIps = "Si"; // Cambia "Si" por "No" si no deseas mostrar las IPs a los administradores cuando un jugador se una a la sala
     
     
     // ▇▇▇▇▇▇▇ 🎮 MODOS DE JUEGO  ▇▇▇▇▇▇▇
@@ -90,18 +90,18 @@ window.onHBLoaded = () => {
     
     
     // Link del webhook para anunciar los Kicks y Bans de la sala. Reemplaza con tu propia URL de webhook.
-    const AnuncioKicksBans = "https://discord.com/api/webhooks/1224784758001893597/NvVYfCIb5pEVJg1cLoQtXDchdGey4yDmlVgjdaYbUJXEZIr72DFmo7EMv591h9c2SLN8";
+    const AnuncioKicksBans = "https://discord.com/api/webhooks/1224784758001893597/NvVYfCIb5pEVJg1cLoQtXDchdGey4yDmlVgjdaYbUJXEZIr72DFmo7EMv591h9c2SLN8"; // {{DS_KICKBANS}}
     
     
     // Link del webhook para Grabaciones y Resumenes de las Partidas jugadas. Reemplaza con tu propia URL de webhook.
-    const WebhookGrabaciones = "https://discord.com/api/webhooks/1294134671717957763/bEuXT5GqgiqP0HFkQHcFIwPDr6_elMhzF5nUCfWnWSZGI8hzHZ8fbSbEvVRdZ5ca0_1S";
+    const WebhookGrabaciones = "https://discord.com/api/webhooks/1294134671717957763/bEuXT5GqgiqP0HFkQHcFIwPDr6_elMhzF5nUCfWnWSZGI8hzHZ8fbSbEvVRdZ5ca0_1S"; // {{DS_RECORDS_HOOK}}
     
-    const GrabacionesDiscord = "discord.gg/2UXsPaHRHq";	// Link del Servidor de Discord donde se subirán las grabaciones de las partidas
+    const GrabacionesDiscord = "discord.gg/2UXsPaHRHq";	// {{DS_RECORDS_LINK}} // Link del Servidor de Discord donde se subirán las grabaciones de las partidas
     
     
     
     // Weebhook para anunciar que has abierto una sala. Reemplaza con tu propia URL de webhook.
-    var AnuncioHostAbierto = "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL";
+    var AnuncioHostAbierto = "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL"; // {{DS_SERVER_OPEN}}
     var MensajeHostAbierto = 
     ``;
     var TagHostAbierto = "@here"; //  Dejar "@here" o Colocar el "ID del Rol de Discord" al que quieres avisarle que creaste Host
@@ -134,9 +134,9 @@ window.onHBLoaded = () => {
     
     // ▇▇▇▇▇▇▇▇▇ REDES SOCIALES ▇▇▇▇▇▇▇▇▇
     
-    const DiscordLink = "discord.gg/2UXsPaHRHq";	// Link de tu Servidor de Discord
-    const YoutubeLink = ""; 	// Link de tu canal de Youtube
-    const TwitchLink = "";	// Link de tu canal de Twitch
+    const DiscordLink = "discord.gg/2UXsPaHRHq";	// {{DS_LINK}} // Link de tu Servidor de Discord
+    const YoutubeLink = ":3"; 	// Link de tu canal de Youtube
+    const TwitchLink = ":3";	// Link de tu canal de Twitch
     
     
     // ▇▇▇▇▇▇▇▇ OTROS ▇▇▇▇▇▇▇▇▇▇
