@@ -1,7 +1,7 @@
 window.onHBLoaded = () => {
     // ▇▇▇▇▇▇▇▇▇ ⚙️ CONFIGURACIÓN BÁSICA 😀 ▇▇▇▇▇▇▇▇▇
     
-    var NombreHost = '🟦🟦🟦 miku server juegan todos 🟦🟦🟦' 	// Definimos el nombre del host (dentro de las comillas)
+    var NombreHost = '🟦🟦🟦 miku server juegan todos 🟦🟦🟦' // {{HOST_NAME}} // Definimos el nombre del host (dentro de las comillas)
     
     
     var CantidadDeJugadores = 30;  		// Cantidad máxima de jugadores que permitirás ingresar a tu Host. Puedes elegir entre 1 y 30 jugadores

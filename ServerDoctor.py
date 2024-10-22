@@ -32,7 +32,6 @@ class ServerDoctor:
         if not serverResponse or serverResponse.startswith(tuple(closedRoomMessages)):
             return False
         
-        print(serverResponse)
         return True
 
 # sd = ServerDoctor("https://www.haxball.com/play?c=xswPO5QtLjw")

@@ -5,8 +5,9 @@ from WebDriver import WebDriver
 from server_enums.Stadiums import Stadiums
 
 class Server:
-    def __init__(self, filepath: str,  stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks):
+    def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks):
         self.script = Script(filepath)
+        self.hostName = hostName
         self.stadium = stadium
         self.gameTime = gameTime
         self.goalLimit = goalLimit
@@ -18,6 +19,7 @@ class Server:
 
     def getScript(self) -> str:
         data = {
+            "{{HOST_NAME}}": f"var NombreHost = \"{self.hostName}\"",
             "{{TOKEN}}": f"token: \"{self.getToken()}\",",
             "{{STADIUM}}": f"var MapaPorDefecto = \"{self.stadium.value}\";",
             "{{GAMETIME}}": f"var TiempoDeJuego = {self.gameTime};",
@@ -33,8 +35,8 @@ class Server:
         
         return self.script.script
     
-    def getServerLink(self, wd: WebDriver):
+    def getServerLink(self, wd: WebDriver) -> str:
         iFrame = wd.findElementByCSS(path="iframe[src*='30xIZB1N/__cache_static__/g/headless.html']")
         wd.switchToFrame(iFrame)
         LinkElement = wd.findElementByXPath(path="//a[contains(@href, 'https://www.haxball.com/play?c=')]")
-        print(LinkElement.get_attribute("href"))
+        return LinkElement.get_attribute("href")
