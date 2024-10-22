@@ -1,8 +1,8 @@
 
 from Script import Script
 from DiscordLinks import DiscordLinks
+from WebDriver import WebDriver
 from server_enums.Stadiums import Stadiums
-import regex
 
 class Server:
     def __init__(self, filepath: str,  stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks):
@@ -16,7 +16,7 @@ class Server:
         with open("files/token.txt", "r") as token:
             return token.read().strip()
 
-    def getScript(self):
+    def getScript(self) -> str:
         data = {
             "{{TOKEN}}": f"token: \"{self.getToken()}\",",
             "{{STADIUM}}": f"var MapaPorDefecto = \"{self.stadium.value}\";",
@@ -32,3 +32,9 @@ class Server:
         self.script.addData(data)
         
         return self.script.script
+    
+    def getServerLink(self, wd: WebDriver):
+        iFrame = wd.findElementByCSS(path="iframe[src*='30xIZB1N/__cache_static__/g/headless.html']")
+        wd.switchToFrame(iFrame)
+        LinkElement = wd.findElementByXPath(path="//a[contains(@href, 'https://www.haxball.com/play?c=')]")
+        print(LinkElement.get_attribute("href"))

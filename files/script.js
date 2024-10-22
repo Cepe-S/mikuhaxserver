@@ -48,7 +48,7 @@ window.onHBLoaded = () => {
     var VisibilidadDelHost = true;  // La sala es pública si está en "true", privada si está en "false"
     
     
-    var BanearIPsDuplicadas = "Si"; // Cambia "Si" por "No" si no deseas banear IPs duplicadas
+    var BanearIPsDuplicadas = "No"; // Cambia "Si" por "No" si no deseas banear IPs duplicadas
     
     
     var MostrarIps = "Si"; // Cambia "Si" por "No" si no deseas mostrar las IPs a los administradores cuando un jugador se una a la sala
@@ -64,7 +64,7 @@ window.onHBLoaded = () => {
     
     var GolDeOroActivado = false; // true para ACTIVARLO - false para DESACTIVARLO | Activar Gol de Oro
     
-    var FairPlayActivado = false; // true para ACTIVARLO - false para DESACTIVARLO | Modo FairPlay
+    var FairPlayActivado = true; // true para ACTIVARLO - false para DESACTIVARLO | Modo FairPlay
     
     var automatizadoActivado = true; // true para ACTIVARLO - false para DESACTIVARLO | Modo Automatizado
     
