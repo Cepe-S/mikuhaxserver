@@ -3,7 +3,7 @@ from time import sleep
 from WebDriver import WebDriver as wd
 
 class ServerDoctor:
-    def __init__(self, serverLink: str, wDriver: wd = wd([], "/usr/bin/chromedriver")):
+    def __init__(self, serverLink: str, wDriver: wd = wd(["--no-sandbox", "--disable-dev-shm-usage", "--headless"], "/usr/bin/chromedriver")):
         self.serverLink = serverLink 
         self.wDriver = wDriver
 
