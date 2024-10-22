@@ -33,7 +33,7 @@ testserver = Server(hostName="miku testing :3",
 
 async def main():
     driver = wd(["--no-sandbox", "--disable-dev-shm-usage", "--headless"], "/usr/bin/chromedriver")
-    server = testserver
+    server = mainserver
     scheduler = Scheduler(driver, server)
     scheduler.startServer()
 
