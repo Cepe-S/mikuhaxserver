@@ -1,4 +1,5 @@
 from typing import List
+from server_enums.OutputType import OutputType as outType
 
 from Logs import Logs
 
@@ -11,36 +12,45 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from sys import platform
-from datetime import datetime as dt
+import os
+
+DEFAULT_ARGUMENTS = ["--no-sandbox", "--disable-dev-shm-usage", "--headless", "--log-level=3", "--silent", "--disable-logging"]
+DEFAULT_PATH = "/usr/bin/chromedriver"
 
 class WebDriver:
-    def __init__(self, arguments: List[str], executablePath: str = ""):
+    def __init__(self, arguments: List[str] = DEFAULT_ARGUMENTS, executablePath: str = DEFAULT_PATH, logger: Logs = None):
         options = ChromeOptions()
         for arg in arguments:
             options.add_argument(arg)
 
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
         options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
         options.add_experimental_option("detach", True)
         
-        service = ChromeService(executable_path=executablePath) if "linux" in platform and executablePath else None
+        if "linux" in platform and executablePath:
+            service = ChromeService(executable_path=executablePath, log_path=os.devnull)
+        else:
+            service = ChromeService(log_output=os.devnull)
 
         self.wd = webdriver.Chrome(service=service, 
                                    options=options)
     
-        self.logger = Logs(dt.now())
+        self.logger = logger
 
     def getPage(self, page: str):
         self.wd.get(page)
 
     def runScript(self, script: str):
         self.wd.execute_script(script)
-
-    def getConsoleLogs(self):
+        
+    def getConsoleLogs(self, printLogs: bool):
         logs = self.wd.get_log("browser")
-        for entry in logs:
-            log = f"{entry['level']}: {entry['message']}"
-            print(log)
-            self.logger.addLog(log)
+        if printLogs:
+            for entry in logs:
+                if self.logger:
+                    log = f"{entry['level']}: {entry['message']}"
+                    self.logger.addLog(log, outType=outType.SERVER)
+        return logs 
 
     def findElementByCSS(self, path: str, time: int = 10) -> WebElement:    
         try:

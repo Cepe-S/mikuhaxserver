@@ -1,12 +1,12 @@
-
 from Script import Script
 from DiscordLinks import DiscordLinks
-from WebDriver import WebDriver
+
 from server_enums.Stadiums import Stadiums
 
 class Server:
     def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks):
         self.script = Script(filepath)
+        self.token = self.getToken()
         self.hostName = hostName
         self.stadium = stadium
         self.gameTime = gameTime
@@ -35,7 +35,7 @@ class Server:
         
         return self.script.script
     
-    def getServerLink(self, wd: WebDriver) -> str:
+    def getServerLink(self, wd) -> str:
         iFrame = wd.findElementByCSS(path="iframe[src*='30xIZB1N/__cache_static__/g/headless.html']")
         wd.switchToFrame(iFrame)
         LinkElement = wd.findElementByXPath(path="//a[contains(@href, 'https://www.haxball.com/play?c=')]")
