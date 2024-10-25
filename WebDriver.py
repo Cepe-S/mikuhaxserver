@@ -28,7 +28,7 @@ class WebDriver:
         options.add_experimental_option("detach", True)
         
         if "linux" in platform and executablePath:
-            service = ChromeService(executable_path=executablePath, log_path=os.devnull)
+            service = ChromeService(executable_path=executablePath, log_output=os.devnull)
         else:
             service = ChromeService(log_output=os.devnull)
 

@@ -34,6 +34,8 @@ class Manager:
             await asyncio.to_thread(self.driver.runScript, self.server.getScript())
             self.ui.toConsole("Script ejecuted", outType.PROGRAM, True)
 
+            self.driver.getConsoleLogs()
+
             serverLink = await asyncio.to_thread(self.server.getServerLink, self.driver)
             self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
 
