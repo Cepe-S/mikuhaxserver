@@ -14,7 +14,33 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from sys import platform
 import os
 
-DEFAULT_ARGUMENTS = ["--no-sandbox", "--disable-dev-shm-usage", "--headless", "--log-level=3", "--silent", "--disable-logging"]
+DEFAULT_ARGUMENTS = [
+    '--headless'
+    '--start-maximized',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-features=WebRtcHideLocalIpsWithMdns',
+    '--disable-client-side-phishing-detection',
+    '--disable-component-extensions-with-background-pages',
+    '--disable-default-apps',
+    '--disable-extensions',
+    '--mute-audio',
+    '--no-default-browser-check',
+    '--no-first-run',
+    '--disable-hang-monitor',
+    '--disable-notifications',
+    '--disable-device-discovery-notifications',
+    '--disable-background-networking',
+    '--disable-breakpad',
+    '--disable-component-update',
+    '--disable-domain-reliability',
+    '--disable-sync',
+    '--metrics-recording-only',
+    '--disable-desktop-notifications',
+    '--in-process-gpu',
+    '--no-zygote',
+]
+
 DEFAULT_PATH = "/usr/bin/chromedriver"
 
 class WebDriver:
@@ -22,7 +48,7 @@ class WebDriver:
         options = ChromeOptions()
         for arg in arguments:
             options.add_argument(arg)
-
+        
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
         options.add_experimental_option("detach", True)
@@ -34,7 +60,7 @@ class WebDriver:
 
         self.wd = webdriver.Chrome(service=service, 
                                    options=options)
-    
+
         self.logger = logger
 
     def getPage(self, page: str):
@@ -45,11 +71,10 @@ class WebDriver:
         
     def getConsoleLogs(self, printLogs: bool):
         logs = self.wd.get_log("browser")
-        if printLogs:
+        if printLogs and self.logger:
             for entry in logs:
-                if self.logger:
-                    log = f"{entry['level']}: {entry['message']}"
-                    self.logger.addLog(log, outType=outType.SERVER)
+                log = f"{entry['level']}: {entry['message']}"
+                self.logger.addLog(log, outType=outType.SERVER)
         return logs 
 
     def findElementByCSS(self, path: str, time: int = 10) -> WebElement:    

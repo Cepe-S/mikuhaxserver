@@ -29,12 +29,12 @@ class Manager:
 
             page = "https://html5.haxball.com/headless"
             await asyncio.to_thread(self.driver.getPage, page)
-            self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, True)
+            self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, False)
             
             await asyncio.to_thread(self.driver.runScript, self.server.getScript())
-            self.ui.toConsole("Script ejecuted", outType.PROGRAM, True)
+            self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
 
-            self.driver.getConsoleLogs()
+            self.driver.getConsoleLogs(True)
 
             serverLink = await asyncio.to_thread(self.server.getServerLink, self.driver)
             self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
@@ -44,17 +44,21 @@ class Manager:
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
 
             self.scheduler.start()
-            self.ui.toConsole("Doctor and logger executed", outType.PROGRAM, True)
+            self.ui.toConsole("Doctor and logger executed", outType.PROGRAM, False)
 
             while self.keepRunning:
                 await asyncio.sleep(1)
 
         except Exception as e:
-            self.ui.toConsole(f"Error en runServer: {str(e)}", outType.PROGRAM, True)
+            self.ui.toConsole(f"Error en el servidor: {str(e)}", outType.ERROR, True)
 
     def checkServerStatus(self, doctor: Doctor):
+        self.ui.toConsole("Checking server status", outType.PROGRAM, False)
         if not doctor.isServerRunning():
+            self.ui.toConsole("Server is not responding", outType.ERROR, True)
             self.restartServer()
+            return
+        self.ui.toConsole("Server check done, everything fine n_n/", outType.PROGRAM, False)
 
     def startServer(self):
         self.keepRunning = True
@@ -149,3 +153,7 @@ class Manager:
                 self.ui.toConsole(f"El comando '{command}' espera {required_args} argumento(s), pero se recibieron {len(args)}.", outType.ERROR, True)
         else:
             self.ui.toConsole(f"Comando '{command}' no reconocido", outType.ERROR, True)
+
+    def closeProgram(self):
+        self.driver.wd.close()
+        self.scheduler.shutdown(wait=False)

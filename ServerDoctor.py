@@ -1,27 +1,30 @@
 import re
 from time import sleep
 from WebDriver import WebDriver as wd
+from UI import UI
 
 class ServerDoctor:
-    def __init__(self, serverLink: str, wDriver: wd = wd(["--no-sandbox", "--disable-dev-shm-usage", "--headless"], "/usr/bin/chromedriver")):
+    def __init__(self, serverLink: str, driver: wd = wd()):
         self.serverLink = serverLink 
-        self.wDriver = wDriver
+        self.driver = driver
 
     def getServerResponse(self) -> str:
-        self.wDriver.getPage(self.serverLink)
+        self.driver.getPage(self.serverLink)
 
-        iFrame = self.wDriver.findElementByCSS(path='iframe[src*="game.html"]')
-        self.wDriver.switchToFrame(iFrame)
+        iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]')
+        self.driver.switchToFrame(iFrame)
 
-        input_box = self.wDriver.findElementByCSS(path='input[data-hook="input"]')
+        input_box = self.driver.findElementByCSS(path='input[data-hook="input"]')
         input_box.send_keys("@here")
 
-        button = self.wDriver.findElementByCSS(path='button[data-hook="ok"]')
+        button = self.driver.findElementByCSS(path='button[data-hook="ok"]')
         button.click()
 
         sleep(10)
-        page_source = self.wDriver.wd.page_source
+        page_source = self.driver.wd.page_source
         match = re.search(r'<p data-hook="reason">(.*?)<\/p>', page_source)
+
+        self.driver.wd.close()
 
         return match.group(1) if match else None 
 
@@ -33,6 +36,3 @@ class ServerDoctor:
             return False
         
         return True
-
-# sd = ServerDoctor("https://www.haxball.com/play?c=xswPO5QtLjw")
-# sd.checkServerStatus()
