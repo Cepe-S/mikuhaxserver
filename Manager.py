@@ -2,7 +2,11 @@ from WebDriver import WebDriver as wd
 from ServerDoctor import ServerDoctor as Doctor
 from UI import UI
 from Server import Server
+from Logs import Logs as Logger
+
 from server_enums.OutputType import OutputType as outType
+
+
 
 from time import sleep
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -10,15 +14,15 @@ import asyncio
 import inspect
 
 class Manager:
-    def __init__(self, driver: wd, server: Server, ui: UI):
-        self.driver = driver
+    def __init__(self, logger: Logger, server: Server, ui: UI):
+        self.logger = logger
+        self.driver = wd(logger=self.logger)
         self.server = server
         self.ui = ui
         self.scheduler = AsyncIOScheduler()
         self.server_running = False
         self.server_task = None
         self.doctor = None
-        self.keepRunning = True
 
     async def runServer(self):
         try:
@@ -46,9 +50,6 @@ class Manager:
             self.scheduler.start()
             self.ui.toConsole("Doctor and logger executed", outType.PROGRAM, False)
 
-            while self.keepRunning:
-                await asyncio.sleep(1)
-
         except Exception as e:
             self.ui.toConsole(f"Error en el servidor: {str(e)}", outType.ERROR, True)
 
@@ -70,7 +71,7 @@ class Manager:
             self.driver.wd.quit()
             self.scheduler.shutdown(wait=False)
             self.server_task.cancel()
-            self.keepRunning = False
+            self.driver = wd(logger=self.logger)
             sleep(5)
             self.ui.toConsole("Servidor cerrado", outType.PROGRAM, True)
 

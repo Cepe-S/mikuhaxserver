@@ -41,10 +41,9 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    driver = wd(logger=logger)
-    server = mainserver
+    server = testserver
 
-    manager = Manager(driver, server, ui)
+    manager = Manager(logger, server, ui)
 
     ui.setInputCallback(manager.processInput)
 
