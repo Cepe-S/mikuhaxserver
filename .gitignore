@@ -1,11 +1,10 @@
-# Ignorar la carpeta logs
+
 logs/
 
-# Ignorar el archivo token.txt dentro de la carpeta files
-files/token.txt
-
-# Ignorar todos los archivos de pycache en cualquier nivel
 __pycache__/
 *.py[cod]
 **/__pycache__/
 **/*.py[cod]
+files/token.txt
+__pycache__/Logs.cpython-311.pyc
+__pycache__/Server.cpython-311.pyc

@@ -30,7 +30,7 @@ class Manager:
             page = "https://html5.haxball.com/headless"
             await asyncio.to_thread(self.driver.getPage, page)
             self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, False)
-            
+
             await asyncio.to_thread(self.driver.runScript, self.server.getScript())
             self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
 
@@ -67,6 +67,8 @@ class Manager:
     def stopServer(self):
         if self.server_task:
             self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
+            self.driver.wd.quit()
+            self.scheduler.shutdown(wait=False)
             self.server_task.cancel()
             self.keepRunning = False
             sleep(5)
@@ -155,5 +157,5 @@ class Manager:
             self.ui.toConsole(f"Comando '{command}' no reconocido", outType.ERROR, True)
 
     def closeProgram(self):
-        self.driver.wd.close()
+        self.driver.wd.quit()
         self.scheduler.shutdown(wait=False)

@@ -24,7 +24,7 @@ class ServerDoctor:
         page_source = self.driver.wd.page_source
         match = re.search(r'<p data-hook="reason">(.*?)<\/p>', page_source)
 
-        self.driver.wd.close()
+        self.driver.wd.quit()
 
         return match.group(1) if match else None 
 

@@ -42,7 +42,7 @@ async def main():
 
     logger = Logs(datetime.now(), ui)
     driver = wd(logger=logger)
-    server = testserver
+    server = mainserver
 
     manager = Manager(driver, server, ui)
 

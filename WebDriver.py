@@ -14,32 +14,28 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from sys import platform
 import os
 
-DEFAULT_ARGUMENTS = [
-    '--headless'
-    '--start-maximized',
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
-    '--disable-features=WebRtcHideLocalIpsWithMdns',
-    '--disable-client-side-phishing-detection',
-    '--disable-component-extensions-with-background-pages',
-    '--disable-default-apps',
-    '--disable-extensions',
-    '--mute-audio',
-    '--no-default-browser-check',
-    '--no-first-run',
-    '--disable-hang-monitor',
-    '--disable-notifications',
-    '--disable-device-discovery-notifications',
-    '--disable-background-networking',
-    '--disable-breakpad',
-    '--disable-component-update',
-    '--disable-domain-reliability',
-    '--disable-sync',
-    '--metrics-recording-only',
-    '--disable-desktop-notifications',
-    '--in-process-gpu',
-    '--no-zygote',
-]
+DEFAULT_ARGUMENTS = ["--no-sandbox",
+                     "--disable-dev-shm-usage",
+                     "--headless",
+                     "--log-level=3",
+                     "--silent",
+                     "--disable-logging",
+                     '--disable-setuid-sandbox',
+                     '--disable-features=WebRtcHideLocalIpsWithMdns',
+                     '--disable-component-extensions-with-background-pages',
+                     '--disable-extensions',
+                     '--disable-background-networking',
+                     '--disable-hang-monitor',
+                     '--mute-audio',
+                     '--no-first-run',
+                     '--disable-background-networking',
+                     '--disable-breakpad',
+                     '--disable-component-update',
+                     '--disable-domain-reliability',
+                     '--disable-sync',
+                     '--metrics-recording-only',
+                     '--no-zygote',
+                     '--in-process-gpu']
 
 DEFAULT_PATH = "/usr/bin/chromedriver"
 
@@ -59,7 +55,8 @@ class WebDriver:
             service = ChromeService(log_output=os.devnull)
 
         self.wd = webdriver.Chrome(service=service, 
-                                   options=options)
+                                   options=options,
+                                   keep_alive=True)
 
         self.logger = logger
 
