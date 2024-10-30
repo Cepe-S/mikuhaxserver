@@ -10,9 +10,6 @@ from Logs import Logs
 
 from server_enums.Stadiums import Stadiums
 
-
-
-
 discordLinks = DiscordLinks(
     "discord.gg/2UXsPaHRHq",
     "https://discord.com/api/webhooks/1297254030535295026/NPjKlluTgQFjfIuhm1n8B-j8G-kQLuES7fchx2b-TLRMED7sCDjVsmUNwnh_i3bgCq69",
@@ -41,7 +38,7 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    server = testserver
+    server = mainserver
 
     manager = Manager(logger, server, ui)
 

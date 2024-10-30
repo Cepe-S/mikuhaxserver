@@ -43,8 +43,8 @@ class Manager:
             serverLink = await asyncio.to_thread(self.server.getServerLink, self.driver)
             self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
 
-            self.doctor = Doctor(serverLink)
-            self.scheduler.add_job(self.checkServerStatus, 'interval', seconds=5*60, args=[self.doctor])
+            self.doctor = Doctor(serverLink, self.logger)
+            self.scheduler.add_job(self.checkServerStatus, 'interval', seconds=5*60, args=[self.doctor, self.logger])
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
 
             self.scheduler.start()
