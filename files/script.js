@@ -18301,19 +18301,6 @@ window.onHBLoaded = () => {
             room.setTeamColors(2, blueAngle, blueTextColor, blueColor);
             teamBlue = "FRANCIA";
         },
-        function () {
-            redAngle = 90;
-            redTextColor = 0xffffff;
-            redColor = [0xdd0125, 0x211f25, 0xdd0125];
-            room.setTeamColors(1, redAngle, redTextColor, redColor);
-            teamRed = "FLAMENGO";
-    
-            blueAngle = 180;
-            blueTextColor = 0xffffff;
-            blueColor = [0x9e0424, 0x1c6137, 0x9e0424];
-            room.setTeamColors(2, blueAngle, blueTextColor, blueColor);
-            teamBlue = "FLUMINENSE";
-        },
     
     function () {
         redAngle = 90;

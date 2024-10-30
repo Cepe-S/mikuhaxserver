@@ -44,7 +44,7 @@ class Manager:
             self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
 
             self.doctor = Doctor(serverLink, self.logger)
-            self.scheduler.add_job(self.checkServerStatus, 'interval', seconds=5*60, args=[self.doctor, self.logger])
+            self.scheduler.add_job(self.checkServerStatus, 'interval', seconds=5*60, args=[self.doctor])
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
 
             self.scheduler.start()
@@ -68,10 +68,17 @@ class Manager:
     def stopServer(self):
         if self.server_task:
             self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
+            
             self.driver.wd.quit()
+            del self.driver
+            self.driver = wd(logger=self.logger)
+
+            self.doctor = None
+            del self.doctor
+
             self.scheduler.shutdown(wait=False)
             self.server_task.cancel()
-            self.driver = wd(logger=self.logger)
+
             sleep(5)
             self.ui.toConsole("Servidor cerrado", outType.PROGRAM, True)
 
@@ -87,7 +94,6 @@ class Manager:
         if not isServerRunning: self.ui.toConsole("The server is closed", outType.ERROR, True)
 
     def isTokenValid(self, token: str):
-
         self.ui.toConsole("Validating token", outType.PROGRAM, True)
         with open("files/token_validator.js", "r") as file:
             validatorScript = file.read().replace("{{token}}", token)
@@ -120,10 +126,6 @@ class Manager:
     def updateToken(self, token):
         if not len(token) == 39 and token[4] == '.':
             self.ui.toConsole("Wrong token format", outType.ERROR, True)
-            return
-        
-        if not self.isTokenValid(token):
-            self.ui.toConsole("Token invalid", outType.ERROR, True)
             return
         
         with open("files/token.txt", "w") as file:
