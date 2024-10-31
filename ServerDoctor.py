@@ -37,7 +37,7 @@ class ServerDoctor:
                 self.logger.addLog(f"The doctor couldn't find the response :c", OutputType.ERROR, True)
         
         except Exception as error:
-            self.logger.addLog(f"The doctor is sick :c we can't trust him {str(error)}", OutputType.ERROR, True)
+            self.logger.addLog(message=f"The doctor is sick :c we can't trust him {str(error)}", outType=OutputType.ERROR)
             return ""
 
     def isServerRunning(self) -> bool:
