@@ -35,7 +35,17 @@ DEFAULT_ARGUMENTS = ["--no-sandbox",
                      '--disable-sync',
                      '--metrics-recording-only',
                      '--no-zygote',
-                     '--in-process-gpu']
+                     '--in-process-gpu',
+                     '--allow-insecure-localhost', # may be a security risk idk :3
+                     '--disable-low-res-tiling',
+                     '--disable-gpu',
+                     '--no-crash-upload',
+                     '--disable-crash-reporter',
+                     '--disable-client-side-phishing-detection',
+                     '--disable-backgrounding-occluded-windows',
+                     '--disable-background-timer-throttling',
+                     '--disable-renderer-backgrounding',
+                     '--disable-oopr-debug-crash-dump']
 
 DEFAULT_PATH = "/usr/bin/chromedriver"
 

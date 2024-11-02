@@ -4,7 +4,7 @@ from DiscordLinks import DiscordLinks
 from server_enums.Stadiums import Stadiums
 
 class Server:
-    def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks):
+    def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks = DiscordLinks()):
         self.script = Script(filepath)
         self.token = self.getToken()
         self.hostName = hostName
@@ -28,7 +28,8 @@ class Server:
             "{{DS_RECORDS_HOOK}}": f"const WebhookGrabaciones = \"{self.dsLinks.records}\";",
             "{{DS_KICKBANS}}": f"const AnuncioKicksBans = \"{self.dsLinks.kickBans}\";",
             "{{DS_SERVER_OPEN}}": f"var AnuncioHostAbierto = \"{self.dsLinks.hostOpen}\";",
-            "{{DS_LINK}}": f"const DiscordLink = \"{self.dsLinks.server}\";"
+            "{{DS_LINK}}": f"const DiscordLink = \"{self.dsLinks.server}\";",
+            "{{DS_ADMIN_CALL}}": f"var WebhookParaLlamarAdmins = \"{self.dsLinks.adminCall}\";"
         }
 
         self.script.addData(data)

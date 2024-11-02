@@ -41,17 +41,14 @@ class UI:
         )
 
     def toConsole(self, message: str, outType: OutputType, bold: bool):
-        # Obtener la hora actual en Argentina
         argentina_tz = pytz.timezone("America/Argentina/Buenos_Aires")
         current_time = datetime.now(argentina_tz).strftime("%H:%M:%S")
 
-        # Formatear y estilizar el mensaje
         label, color = outType.value
         time_display = Text(f"[{current_time}] ", style=Style(color="bright_yellow", bold=True))
         styledLabel = Text(f"{label}: ", style=Style(color=color, bold=bold))
         styledMessage = Text(f"{message}", style=Style(color=color))
 
-        # Imprimir el mensaje con la hora, el tipo y el contenido
         self.console.print(time_display + styledLabel + styledMessage)
 
     async def waitForInput(self):

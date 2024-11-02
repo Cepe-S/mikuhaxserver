@@ -120,7 +120,7 @@ window.onHBLoaded = () => {
     
     
     // Webhook para recibir el mensaje que han llamado a los Administradores. Reemplaza con tu propia URL de webhook.
-    var WebhookParaLlamarAdmins = "https://discord.com/api/webhooks/1201852308569464873/FPoPAp2x3kxHpS4XWLcMIASHBu-zl1C7IbMTQYpCxOmyM_ARRVpsFEU71W-x8PFwbNBv";
+    var WebhookParaLlamarAdmins = "https://discord.com/api/webhooks/1201852308569464873/FPoPAp2x3kxHpS4XWLcMIASHBu-zl1C7IbMTQYpCxOmyM_ARRVpsFEU71W-x8PFwbNBv"; // {{DS_ADMIN_CALL}}
     
     
     var RolAdminHost = "@here"; // Dejar '@here' o colocar el ID del rol de Discord que se quiere llamar
