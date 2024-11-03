@@ -11,6 +11,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+
+import logging
 from sys import platform
 import os
 
@@ -58,6 +60,24 @@ class WebDriver:
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
         options.add_experimental_option("detach", True)
+
+        driverLogPath = "logs/driverLogs.txt"
+
+        driverLogger = logging.getLogger('selenium')
+        driverLogger.setLevel(logging.DEBUG)
+        
+        handler = logging.FileHandler(driverLogPath)
+        driverLogger.addHandler(handler)
+        
+        logging.getLogger('selenium.webdriver.remote').setLevel(logging.WARN)
+        logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
+
+        driverLogger.info("this is useful information")
+        driverLogger.warning("this is a warning")
+        driverLogger.debug("this is detailed debug information")
+
+        with open(driverLogPath, 'r') as fp:
+            assert len(fp.readlines()) == 3
         
         if "linux" in platform and executablePath:
             service = ChromeService(executable_path=executablePath, log_output=os.devnull)

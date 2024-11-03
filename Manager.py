@@ -76,6 +76,7 @@ class Manager:
 
             self.doctor = None
 
+            self.scheduler.remove_all_jobs()
             self.scheduler.shutdown(wait=False)
             self.scheduler = AsyncIOScheduler()
 
