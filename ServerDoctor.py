@@ -4,8 +4,10 @@ from server_enums.OutputType import OutputType
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
+
 
 import sys
 import asyncio
@@ -22,20 +24,35 @@ class ServerDoctor:
             self.driver.getPage(self.serverLink)
 
             iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]')
+            if not iFrame:
+                self.logger.addLog(message="Can't find log in iFrame", outType=OutputType.ERROR)
+                raise NoSuchElementException
             self.driver.switchToFrame(iFrame)
 
             input_box = self.driver.findElementByCSS(path='input[data-hook="input"]')
+            if not input_box:
+                self.logger.addLog(message="Can't find log in input box", outType=OutputType.ERROR)
+                raise NoSuchElementException
             input_box.send_keys("doctor")
 
             button = self.driver.findElementByCSS(path='button[data-hook="ok"]')
+            if not button:
+                self.logger.addLog(message="Can't find log in button", outType=OutputType.ERROR)
+                raise NoSuchElementException
             button.click()
 
             self.driver.wd.switch_to.default_content()
             
             iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]')
+            if not iFrame:
+                self.logger.addLog(message="Can't find game iFrame (the second one)", outType=OutputType.ERROR)
+                raise NoSuchElementException
             self.driver.switchToFrame(iFrame)
-            
+
             element = self.driver.findElementByCSS(path='input[data-hook="input"]')
+            if not element:
+                self.logger.addLog(message="Can't find iFrame 2", outType=OutputType.ERROR)
+                raise NoSuchElementException
             element.send_keys("!yoadmin");   element.send_keys(Keys.ENTER)
             element.send_keys("!powershot"); element.send_keys(Keys.ENTER)
             element.send_keys("!afk");       element.send_keys(Keys.ENTER)
@@ -52,5 +69,5 @@ class ServerDoctor:
                     pass
 
         except Exception as error:
-            self.logger.addLog(message=f"The doctor is sick :c we can't trust him {str(error)}", outType=OutputType.ERROR)
+            self.logger.addLog(message=f"The doctor is sick ~(>_<。)＼\n{str(error)}", outType=OutputType.ERROR)
             return False
