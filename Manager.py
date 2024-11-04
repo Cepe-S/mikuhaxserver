@@ -6,12 +6,11 @@ from Logs import Logs as Logger
 
 from server_enums.OutputType import OutputType as outType
 
-
-
 from time import sleep
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import asyncio
 import inspect
+import gc
 
 class Manager:
     def __init__(self, logger: Logger, server: Server, ui: UI):
@@ -20,10 +19,10 @@ class Manager:
         self.server = server
         self.ui = ui
         self.scheduler = AsyncIOScheduler()
-        self.server_task = None
         self.doctor = None
+        self.isServerRunning = None
 
-    async def runServer(self):
+    def runServer(self) -> int:
         try:
             if not self.isTokenValid(self.server.token):
                 return
@@ -31,60 +30,86 @@ class Manager:
             self.ui.toConsole("Initializing server", outType.PROGRAM, True)
 
             page = "https://html5.haxball.com/headless"
-            await asyncio.to_thread(self.driver.getPage, page)
+            self.driver.getPage(page)
             self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, False)
 
-            await asyncio.to_thread(self.driver.runScript, self.server.getScript())
+            self.driver.runScript(self.server.getScript())
             self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
 
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
             self.scheduler.start()
+            self.ui.toConsole("Logger executed", outType.PROGRAM, False)
+
+            serverLink = self.server.getServerLink(self.driver)
+            if not serverLink:
+                self.ui.toConsole(f"Can't find server link ~(>_<。)＼, canceling...", outType.ERROR, True)
+                self.stopServer()
+                return 1
             
-            serverLink = await asyncio.to_thread(self.server.getServerLink, self.driver)
             self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
 
-            self.doctor = Doctor(serverLink, self.logger)
-            self.scheduler.add_job(self.checkServerStatus, 'interval', seconds=5*60, args=[self.doctor])
+            self.isServerRunning = True
 
-            self.ui.toConsole("Doctor and logger executed", outType.PROGRAM, False)
+            self.doctor = Doctor(serverLink, self.logger)
+            loop = asyncio.get_event_loop()
+            loop.run_in_executor(None, self._run_execute_doctor)  # Llama a un método que no es async
+
+            self.ui.toConsole("Doctor executed", outType.PROGRAM, False)
+
+            return 0
 
         except Exception as e:
             self.ui.toConsole(f"Error en el servidor: {str(e)}", outType.ERROR, True)
-
-    def checkServerStatus(self, doctor: Doctor):
-        if not self.doctor: 
-            self.ui.toConsole("The doctor is sleeping (っ- ‸ - ς)ᶻ 𝗓 𐰁")
-            return
-
-        self.ui.toConsole("Checking server status...", outType.PROGRAM, False)
-        if not doctor.isServerRunning():
-            self.ui.toConsole("Server is not responding, restarting...", outType.ERROR, True)
+            return 1
+        
+    def _run_execute_doctor(self):
+        asyncio.run(self.executeDoctor())
+    
+    async def executeDoctor(self):
+        serverStopped = await self.doctor.getIntoPatient()
+        
+        if serverStopped:
             self.restartServer()
+
+    def checkServerStatus(self):
+        if not self.isServerRunning:
+            self.ui.toConsole("Server is not running", outType.ERROR, True)
             return
 
         self.ui.toConsole("Server check done, everything fine n_n/", outType.PROGRAM, False)
 
     def startServer(self):
-        self.server_task = asyncio.create_task(self.runServer())
+        self.runServer()
 
     def stopServer(self):
-        if self.server_task:
-            self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
-            
+        self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
+        
+        if self.driver and self.driver.wd:
+            self.driver.wd.close()
             self.driver.wd.quit()
-            self.driver = wd(logger=self.logger)
+        self.driver = wd(logger=self.logger)
 
-            self.doctor = None
+        if self.doctor.driver and self.doctor.driver.wd:
+            self.doctor.driver.wd.close()
+            self.doctor.driver.wd.quit()
+        self.doctor = None
 
-            self.scheduler.remove_all_jobs()
-            self.scheduler.shutdown(wait=False)
-            self.scheduler = AsyncIOScheduler()
+        self.scheduler.remove_all_jobs()
+        self.scheduler.shutdown(wait=False)
+        self.scheduler = AsyncIOScheduler()
 
-            self.server_task.cancel()
-            self.server_task = None
+        gc.collect()
 
-            sleep(5)
-            self.ui.toConsole("Servidor cerrado", outType.PROGRAM, True)
+        self.ui.toConsole("Servidor cerrado", outType.PROGRAM, True)
+
+    def sillyStopServer(self):
+        self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
+        
+        self.driver.wd.quit()
+        self.driver = wd(logger=self.logger)
+
+        sleep(5)
+        self.ui.toConsole("Servidor cerrado", outType.PROGRAM, True)
 
     def restartServer(self):
         self.stopServer()
@@ -140,7 +165,8 @@ class Manager:
             "stopserver": self.stopServer,
             "restartserver": self.restartServer,
             "checkserver": self.checkServerStatus,
-            "updatetoken": self.updateToken
+            "updatetoken": self.updateToken,
+            "sillystop": self.sillyStopServer
         }
         func = commands.get(command)
 

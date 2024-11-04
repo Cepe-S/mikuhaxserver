@@ -56,6 +56,8 @@ class UI:
             userInput = await asyncio.to_thread(Prompt.ask, ">", default=self.inputText)
             if self.inputCallback:
                 self.inputCallback(userInput)
+            else:
+                self.toConsole("No inputCallback available", outType=OutputType.ERROR, bold=True)
 
     async def run(self):
         try:

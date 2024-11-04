@@ -29,7 +29,7 @@ testserver = Server(hostName="miku testing :3",
                 stadium=Stadiums.FUTSAL_X7, 
                 filepath="files/script.js", 
                 gameTime=10, 
-                goalLimit=4,)
+                goalLimit=4)
 
 
 # TODO: Control para usar el chat desde la consola
@@ -38,7 +38,7 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    server = mainserver
+    server = testserver
 
     manager = Manager(logger, server, ui)
 

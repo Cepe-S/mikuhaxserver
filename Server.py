@@ -3,6 +3,8 @@ from DiscordLinks import DiscordLinks
 
 from server_enums.Stadiums import Stadiums
 
+from selenium.common.exceptions import TimeoutException
+
 class Server:
     def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks = DiscordLinks()):
         self.script = Script(filepath)
@@ -36,8 +38,12 @@ class Server:
         
         return self.script.script
     
+    # returns an empty string if the server has no open
     def getServerLink(self, wd) -> str:
-        iFrame = wd.findElementByCSS(path="iframe[src*='30xIZB1N/__cache_static__/g/headless.html']")
-        wd.switchToFrame(iFrame)
-        LinkElement = wd.findElementByXPath(path="//a[contains(@href, 'https://www.haxball.com/play?c=')]")
-        return LinkElement.get_attribute("href")
+        try:
+            iFrame = wd.findElementByCSS(path="iframe[src*='30xIZB1N/__cache_static__/g/headless.html']")
+            wd.switchToFrame(iFrame)
+            LinkElement = wd.findElementByXPath(path="//a[contains(@href, 'https://www.haxball.com/play?c=')]")
+            return LinkElement.get_attribute("href")
+        except TimeoutException:
+            return ""

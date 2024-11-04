@@ -71,13 +71,6 @@ class WebDriver:
         
         logging.getLogger('selenium.webdriver.remote').setLevel(logging.WARN)
         logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
-
-        driverLogger.info("this is useful information")
-        driverLogger.warning("this is a warning")
-        driverLogger.debug("this is detailed debug information")
-
-        with open(driverLogPath, 'r') as fp:
-            assert len(fp.readlines()) == 3
         
         if "linux" in platform and executablePath:
             service = ChromeService(executable_path=executablePath, log_output=os.devnull)
