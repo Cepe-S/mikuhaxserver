@@ -15,7 +15,8 @@ discordLinks = DiscordLinks(
     kickBans =  "https://discord.com/api/webhooks/1297254030535295026/NPjKlluTgQFjfIuhm1n8B-j8G-kQLuES7fchx2b-TLRMED7sCDjVsmUNwnh_i3bgCq69",
     records =   "https://discord.com/api/webhooks/1294134671717957763/bEuXT5GqgiqP0HFkQHcFIwPDr6_elMhzF5nUCfWnWSZGI8hzHZ8fbSbEvVRdZ5ca0_1S",
     hostOpen =  "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL",
-    adminCall = "https://discord.com/api/webhooks/1302312023660695552/yS0UJ01ukEQrI_-3P1Xj28ChU8i5U69sFO4g4pjfP_SWQqAFUBZt8Vij9CC0IvwSIGue"
+    adminCall = "https://discord.com/api/webhooks/1302312023660695552/yS0UJ01ukEQrI_-3P1Xj28ChU8i5U69sFO4g4pjfP_SWQqAFUBZt8Vij9CC0IvwSIGue",
+    haxChat =   "https://discord.com/api/webhooks/1303160112403320842/xznye32Z3shmj7IBDcNOyCr6PeXWxGHlAC9omLLOc5TfLxHNJLs8MmHR6QoKBFDKxonO"
 ) 
 
 mainserver = Server(hostName="🟦🟦🟦 miku server juegan todos 🟦🟦🟦",
@@ -38,7 +39,7 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    server = testserver
+    server = mainserver
 
     manager = Manager(logger, server, ui)
 

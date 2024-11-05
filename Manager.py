@@ -35,7 +35,7 @@ class Manager:
 
             self.driver.runScript(self.server.getScript())
             self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
-
+            
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
             self.scheduler.start()
             self.ui.toConsole("Logger executed", outType.PROGRAM, False)

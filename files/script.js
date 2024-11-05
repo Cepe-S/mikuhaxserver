@@ -110,12 +110,12 @@ window.onHBLoaded = () => {
     
     
     // Webhook para ver los mensajes de los jugadores. Reemplaza con tu propia URL de webhook.
-    var webhookMensajesJugadores  = "https://discord.com/api/webhooks/1201826875073376266/jrFvI1CuTmwUOwAfC8-hMZhkreCEzLjfGBqhiqxIcbHRqkCWaBnFHTF5V0YcUKtGTign";
+    var webhookMensajesJugadores  = "https://discord.com/api/webhooks/1303160112403320842/xznye32Z3shmj7IBDcNOyCr6PeXWxGHlAC9omLLOc5TfLxHNJLs8MmHR6QoKBFDKxonO"; // {{DS_HAXCHAT}}
     
     
     
     // Webhook para enviar los ingresos y salidas de los jugadores a Discord
-    var webhookBoletero = "https://discord.com/api/webhooks/1215904770699690104/Cuk8W0gJLVhE9gSw54YseGe6KR5PnkeHcB7dvD_GGoGAO6f-JoAsQfMiOQnieiAfU84D";
+    var webhookBoletero = "https://discord.com/api/webhooks/1215904770699690104/Cuk8W0gJLVhE9gSw54YseGe6KR5PnkeHcB7dvD_GGoGAO6f-JoAsQfMiOQnieiAfU84D"; // {{DS_ENTRYS}}
     
     
     

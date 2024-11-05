@@ -31,7 +31,9 @@ class Server:
             "{{DS_KICKBANS}}": f"const AnuncioKicksBans = \"{self.dsLinks.kickBans}\";",
             "{{DS_SERVER_OPEN}}": f"var AnuncioHostAbierto = \"{self.dsLinks.hostOpen}\";",
             "{{DS_LINK}}": f"const DiscordLink = \"{self.dsLinks.server}\";",
-            "{{DS_ADMIN_CALL}}": f"var WebhookParaLlamarAdmins = \"{self.dsLinks.adminCall}\";"
+            "{{DS_ADMIN_CALL}}": f"var WebhookParaLlamarAdmins = \"{self.dsLinks.adminCall}\";",
+            "{{DS_HAXCHAT}}": f"var webhookMensajesJugadores = \"{self.dsLinks.haxChat}\";",
+            "{{DS_ENTRYS}}": f"var webhookBoletero = \"{self.dsLinks.entrys}\";"
         }
 
         self.script.addData(data)
