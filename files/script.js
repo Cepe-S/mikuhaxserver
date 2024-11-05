@@ -19033,7 +19033,6 @@ window.onHBLoaded = () => {
                 if (game.powershotCounter > 52) {
     
                     game.rsSwingTimer = 50;
-                    room.sendAnnouncement("DISPARO POTENTE REALIZADO!", player.pm, 0x33dddd, "bold", 1);
                 }
                 game.powershotCounter = 0;
                 game.powershotID = 0;
@@ -19061,7 +19060,6 @@ window.onHBLoaded = () => {
                 if (game.powershotCounter > 52) {
                     room.setDiscProperties(0, {xgravity: -room.getPlayerDiscProperties(player.id).yspeed/30, ygravity: -room.getPlayerDiscProperties(player.id).yspeed/30});
                     game.rsSwingTimer = 50;
-                    room.sendAnnouncement("DISPARO POTENTE REALIZADO!", player.pm, 0x33dddd, "bold", 1);
                 }
                 game.powershotCounter = 0;
                 game.powershotID = 0;
