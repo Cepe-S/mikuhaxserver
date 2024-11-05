@@ -21,6 +21,7 @@ class Manager:
         self.scheduler = AsyncIOScheduler()
         self.doctor = None
         self.isServerRunning = None
+        self.serverLink = ""
 
     def runServer(self) -> int:
         try:
@@ -33,24 +34,22 @@ class Manager:
             self.driver.getPage(page)
             self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, False)
 
-            self.driver.runScript(self.server.getScript())
-            self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
-            
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
             self.scheduler.start()
             self.ui.toConsole("Logger executed", outType.PROGRAM, False)
-
-            serverLink = self.server.getServerLink(self.driver)
-            if not serverLink:
-                self.ui.toConsole(f"Can't find server link ~(>_<。)＼, canceling...", outType.ERROR, True)
-                self.stopServer()
-                return 1
             
-            self.ui.toConsole(f"Link found: {serverLink}", outType.PROGRAM, True)
+            while not self.serverLink:
+                self.driver.runScript(self.server.getScript())
+                self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
+
+                self.serverLink = self.server.getServerLink(self.driver)
+                if not self.serverLink: self.ui.toConsole(f"Can't find server link ~(>_<。)＼, trying again...", outType.ERROR, True)
+
+            self.ui.toConsole(f"Link found: {self.serverLink}", outType.PROGRAM, True)
 
             self.isServerRunning = True
 
-            self.doctor = Doctor(serverLink, self.logger)
+            self.doctor = Doctor(self.serverLink, self.logger)
             loop = asyncio.get_event_loop()
             loop.run_in_executor(None, self._run_execute_doctor)  # Llama a un método que no es async
 
@@ -83,7 +82,9 @@ class Manager:
 
     def stopServer(self):
         self.ui.toConsole("Cerrando servidor", outType.PROGRAM, True)
-        
+
+        self.serverLink = ""
+
         if self.driver and self.driver.wd:
             self.driver.wd.close()
             self.driver.wd.quit()
