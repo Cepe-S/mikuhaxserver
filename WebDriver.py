@@ -88,7 +88,7 @@ class WebDriver:
 
     def runScript(self, script: str):
         self.wd.execute_script(script)
-        
+
     def getConsoleLogs(self, printLogs: bool):
         logs = self.wd.get_log("browser")
         if printLogs and self.logger:

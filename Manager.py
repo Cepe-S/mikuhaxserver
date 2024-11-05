@@ -26,7 +26,7 @@ class Manager:
     def runServer(self) -> int:
         try:
             if not self.isTokenValid(self.server.token):
-                return
+                return 1
 
             self.ui.toConsole("Initializing server", outType.PROGRAM, True)
 
@@ -37,10 +37,12 @@ class Manager:
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
             self.scheduler.start()
             self.ui.toConsole("Logger executed", outType.PROGRAM, False)
-            
+
             while not self.serverLink:
                 self.driver.runScript(self.server.getScript())
                 self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
+
+                sleep(3)
 
                 self.serverLink = self.server.getServerLink(self.driver)
                 if not self.serverLink: 

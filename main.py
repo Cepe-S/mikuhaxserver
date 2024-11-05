@@ -3,7 +3,6 @@ import asyncio
 
 from Server import Server
 from DiscordLinks import DiscordLinks
-from WebDriver import WebDriver as wd
 from Manager import Manager
 from UI import UI
 from Logs import Logs
@@ -16,7 +15,8 @@ discordLinks = DiscordLinks(
     records =   "https://discord.com/api/webhooks/1294134671717957763/bEuXT5GqgiqP0HFkQHcFIwPDr6_elMhzF5nUCfWnWSZGI8hzHZ8fbSbEvVRdZ5ca0_1S",
     hostOpen =  "https://discord.com/api/webhooks/1294345171764248586/D3D2XTB9HL7n7iFV5xlykuX5CAVfc_Kg8p1M9vVQ9P7vNXAxHDEc3-VwrTuw_Fr4LrqL",
     adminCall = "https://discord.com/api/webhooks/1302312023660695552/yS0UJ01ukEQrI_-3P1Xj28ChU8i5U69sFO4g4pjfP_SWQqAFUBZt8Vij9CC0IvwSIGue",
-    haxChat =   "https://discord.com/api/webhooks/1303160112403320842/xznye32Z3shmj7IBDcNOyCr6PeXWxGHlAC9omLLOc5TfLxHNJLs8MmHR6QoKBFDKxonO"
+    haxChat =   "https://discord.com/api/webhooks/1303160112403320842/xznye32Z3shmj7IBDcNOyCr6PeXWxGHlAC9omLLOc5TfLxHNJLs8MmHR6QoKBFDKxonO",
+    entrys =    "https://discord.com/api/webhooks/1303436820759183411/ajsF-l71CeFYnWuzTVye6UlkpNpIONX-mdoBLZfwi541ptxORzRkztQ_C2JkMkk0lUUK"
 ) 
 
 mainserver = Server(hostName="🟦🟦🟦 miku server juegan todos 🟦🟦🟦",
@@ -39,7 +39,7 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    server = mainserver
+    server = testserver
 
     manager = Manager(logger, server, ui)
 
