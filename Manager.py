@@ -43,7 +43,9 @@ class Manager:
                 self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
 
                 self.serverLink = self.server.getServerLink(self.driver)
-                if not self.serverLink: self.ui.toConsole(f"Can't find server link ~(>_<。)＼, trying again...", outType.ERROR, True)
+                if not self.serverLink: 
+                    self.ui.toConsole(f"Can't find server link ~(>_<。)＼, trying again...", outType.ERROR, True)
+                    self.restartDriver()
 
             self.ui.toConsole(f"Link found: {self.serverLink}", outType.PROGRAM, True)
 
@@ -69,6 +71,11 @@ class Manager:
         
         if serverStopped:
             self.restartServer()
+
+    def restartDriver(self):
+        self.driver.wd.close()
+        self.driver.wd.quit()
+        self.driver = wd(logger=self.logger)
 
     def checkServerStatus(self):
         if not self.isServerRunning:
