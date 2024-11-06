@@ -39,7 +39,7 @@ async def main():
     ui = UI()
 
     logger = Logs(datetime.now(), ui)
-    server = testserver
+    server = mainserver
 
     manager = Manager(logger, server, ui)
 

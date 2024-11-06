@@ -23,33 +23,28 @@ class ServerDoctor:
         try:
             self.driver.getPage(self.serverLink)
 
-            iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]')
+            iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]', time=30)
             if not iFrame:
                 self.logger.addLog(message="Can't find log in iFrame", outType=OutputType.ERROR)
                 raise NoSuchElementException
             self.driver.switchToFrame(iFrame)
 
-            input_box = self.driver.findElementByCSS(path='input[data-hook="input"]')
+            input_box = self.driver.findElementByCSS(path='input[data-hook="input"]', time=30)
             if not input_box:
                 self.logger.addLog(message="Can't find log in input box", outType=OutputType.ERROR)
                 raise NoSuchElementException
             input_box.send_keys("doctor")
-
-            button = self.driver.findElementByCSS(path='button[data-hook="ok"]')
-            if not button:
-                self.logger.addLog(message="Can't find log in button", outType=OutputType.ERROR)
-                raise NoSuchElementException
-            button.click()
+            input_box.send_keys(Keys.ENTER)
 
             self.driver.wd.switch_to.default_content()
             
-            iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]')
+            iFrame = self.driver.findElementByCSS(path='iframe[src*="game.html"]', time=30)
             if not iFrame:
                 self.logger.addLog(message="Can't find game iFrame (the second one)", outType=OutputType.ERROR)
                 raise NoSuchElementException
             self.driver.switchToFrame(iFrame)
 
-            element = self.driver.findElementByCSS(path='input[data-hook="input"]')
+            element = self.driver.findElementByCSS(path='input[data-hook="input"]', time=30)
             if not element:
                 self.logger.addLog(message="Can't find iFrame 2", outType=OutputType.ERROR)
                 raise NoSuchElementException

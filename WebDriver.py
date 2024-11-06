@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.remote.command import Command
 
 import logging
 from sys import platform
@@ -72,7 +73,8 @@ class WebDriver:
         
         logging.getLogger('selenium.webdriver.remote').setLevel(logging.WARN)
         logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
-        
+        logging.getLogger('selenium.webdriver.chrome').setLevel(logging.CRITICAL)
+
         if "linux" in platform and executablePath:
             service = ChromeService(executable_path=executablePath, log_output=os.devnull)
         else:
@@ -90,7 +92,7 @@ class WebDriver:
     def runScript(self, script: str):
         self.wd.execute_script(script)
 
-    def getConsoleLogs(self, printLogs: bool):
+    def getConsoleLogs(self, printLogs: bool) -> str:
         logs = self.wd.get_log("browser")
         if printLogs and self.logger:
             for entry in logs:
@@ -116,3 +118,11 @@ class WebDriver:
 
     def switchToFrame(self, frame: WebElement):
         self.wd.switch_to.frame(frame)
+
+    def isDriverAlive(self) -> bool:
+        try:
+            self.wd.execute(Command.REFRESH)
+            return True
+        except Exception as error:
+            self.logger.addLog(f"Can't connect with driver:\n {error}", outType=outType.ERROR)
+            return False

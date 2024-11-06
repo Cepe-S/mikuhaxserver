@@ -30,13 +30,18 @@ class Manager:
 
             self.ui.toConsole("Initializing server", outType.PROGRAM, True)
 
-            page = "https://html5.haxball.com/headless"
+            page = "https://www.haxball.com/headless"
             self.driver.getPage(page)
             self.ui.toConsole(f"Page {page} connected.", outType.PROGRAM, False)
 
             self.scheduler.add_job(self.driver.getConsoleLogs, 'interval', seconds=2, args=[True])
             self.scheduler.start()
             self.ui.toConsole("Logger executed", outType.PROGRAM, False)
+
+            while not self.driver.isDriverAlive():
+                self.ui.toConsole("The driver is not responding, trying again...", outType=outType.ERROR, bold=True)
+                sleep(3)
+            self.ui.toConsole("Driver checked", outType=outType.PROGRAM, bold=False)
 
             while not self.serverLink:
                 self.driver.runScript(self.server.getScript())
@@ -45,7 +50,7 @@ class Manager:
                 sleep(3)
 
                 self.serverLink = self.server.getServerLink(self.driver)
-                if not self.serverLink: 
+                if not self.serverLink:
                     self.ui.toConsole(f"Can't find server link ~(>_<。)＼, trying again...", outType.ERROR, True)
                     self.restartDriver()
 
