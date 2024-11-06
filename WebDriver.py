@@ -22,32 +22,33 @@ DEFAULT_ARGUMENTS = ["--no-sandbox",
                      "--log-level=3",
                      "--silent",
                      "--disable-logging",
-                     '--disable-setuid-sandbox',
-                     '--disable-features=WebRtcHideLocalIpsWithMdns',
-                     '--disable-component-extensions-with-background-pages',
-                     '--disable-extensions',
-                     '--disable-background-networking',
-                     '--disable-hang-monitor',
+                    #  '--disable-setuid-sandbox',
+                    #  '--disable-features=WebRtcHideLocalIpsWithMdns',
+                    #  '--disable-component-extensions-with-background-pages',
+                    #  '--disable-extensions',
+                    #  '--disable-background-networking',
+                    #  '--disable-hang-monitor',
                      '--mute-audio',
-                     '--no-first-run',
-                     '--disable-background-networking',
-                     '--disable-breakpad',
-                     '--disable-component-update',
-                     '--disable-domain-reliability',
-                     '--disable-sync',
-                     '--metrics-recording-only',
-                     '--no-zygote',
-                     '--in-process-gpu',
-                     '--allow-insecure-localhost', # may be a security risk idk :3
-                     '--disable-low-res-tiling',
+                    #  '--no-first-run',
+                    #  '--disable-background-networking',
+                    #  '--disable-breakpad',
+                    #  '--disable-component-update',
+                    #  '--disable-domain-reliability',
+                    #  '--disable-sync',
+                    #  '--metrics-recording-only',
+                    #  '--no-zygote',
+                    #  '--in-process-gpu',
+                    #  '--allow-insecure-localhost', # may be a security risk idk :3
+                    #  '--disable-low-res-tiling',
                      '--disable-gpu',
                      '--no-crash-upload',
                      '--disable-crash-reporter',
-                     '--disable-client-side-phishing-detection',
-                     '--disable-backgrounding-occluded-windows',
-                     '--disable-background-timer-throttling',
-                     '--disable-renderer-backgrounding',
-                     '--disable-oopr-debug-crash-dump']
+                    #  '--disable-client-side-phishing-detection',
+                    #  '--disable-backgrounding-occluded-windows',
+                    #  '--disable-background-timer-throttling',
+                    #  '--disable-renderer-backgrounding',
+                    #  '--disable-oopr-debug-crash-dump'
+                    ]
 
 DEFAULT_PATH = "/usr/bin/chromedriver"
 
@@ -115,5 +116,3 @@ class WebDriver:
 
     def switchToFrame(self, frame: WebElement):
         self.wd.switch_to.frame(frame)
-
-    
