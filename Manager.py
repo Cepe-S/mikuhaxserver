@@ -58,7 +58,7 @@ class Manager:
 
             self.isServerRunning = True
 
-            self.doctor = Doctor(self.serverLink, self.logger)
+            self.doctor = Doctor(self.serverLink, self.server.adminPassword, self.logger)
             loop = asyncio.get_event_loop()
             loop.run_in_executor(None, self._run_execute_doctor)  # Llama a un método que no es async
 
@@ -99,15 +99,15 @@ class Manager:
 
         self.serverLink = ""
 
-        if self.driver and self.driver.wd:
-            self.driver.wd.close()
-            self.driver.wd.quit()
-        self.driver = wd(logger=self.logger)
-
         if self.doctor.driver and self.doctor.driver.wd:
             self.doctor.driver.wd.close()
             self.doctor.driver.wd.quit()
         self.doctor = None
+
+        if self.driver and self.driver.wd:
+            self.driver.wd.close()
+            self.driver.wd.quit()
+        self.driver = wd(logger=self.logger)
 
         self.scheduler.remove_all_jobs()
         self.scheduler.shutdown(wait=False)

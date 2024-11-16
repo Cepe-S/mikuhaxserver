@@ -13,8 +13,9 @@ import sys
 import asyncio
 
 class ServerDoctor:
-    def __init__(self, serverLink: str, logger=Logger):
+    def __init__(self, serverLink: str, adminPassword: str, logger: Logger):
         self.serverLink = serverLink
+        self.adminPassword = adminPassword
         self.logger = logger 
         self.driver = wd(logger=self.logger)
         self.serverDied = asyncio.Event()
@@ -48,7 +49,7 @@ class ServerDoctor:
             if not element:
                 self.logger.addLog(message="Can't find iFrame 2", outType=OutputType.ERROR)
                 raise NoSuchElementException
-            element.send_keys("!yoadmin");   element.send_keys(Keys.ENTER)
+            element.send_keys("!"+ self.adminPassword);   element.send_keys(Keys.ENTER)
             element.send_keys("!powershot"); element.send_keys(Keys.ENTER)
             element.send_keys("!afk");       element.send_keys(Keys.ENTER)
 

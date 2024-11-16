@@ -20,18 +20,20 @@ discordLinks = DiscordLinks(
 ) 
 
 mainserver = Server(hostName="🟦🟦🟦 miku server juegan todos 🟦🟦🟦",
-                stadium=Stadiums.FUTSAL_X7, 
-                filepath="files/script.js", 
-                gameTime=10, 
-                goalLimit=5, 
-                dsLinks=discordLinks)
+                    stadium=Stadiums.FUTSAL_X7, 
+                    adminPassword="holasoyadmin",
+                    filepath="files/script.js", 
+                    gameTime=10, 
+                    goalLimit=5, 
+                    dsLinks=discordLinks)
 
 testserver = Server(hostName="miku testing :3",
-                stadium=Stadiums.FUTSAL_X7, 
-                filepath="files/script.js", 
-                gameTime=10, 
-                goalLimit=4)
-
+                    stadium=Stadiums.FUTSAL_X7, 
+                    adminPassword="holasoyadmin",
+                    filepath="files/script.js", 
+                    gameTime=10, 
+                    goalLimit=5, 
+                    dsLinks=DiscordLinks())
 
 # TODO: Control para usar el chat desde la consola
 

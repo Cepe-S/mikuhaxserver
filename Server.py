@@ -6,10 +6,11 @@ from server_enums.Stadiums import Stadiums
 from selenium.common.exceptions import TimeoutException
 
 class Server:
-    def __init__(self, filepath: str, hostName: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks = DiscordLinks()):
+    def __init__(self, filepath: str, hostName: str, adminPassword: str, stadium: Stadiums, gameTime: int, goalLimit: int, dsLinks: DiscordLinks = DiscordLinks()):
         self.script = Script(filepath)
         self.token = self.getToken()
         self.hostName = hostName
+        self.adminPassword = adminPassword
         self.stadium = stadium
         self.gameTime = gameTime
         self.goalLimit = goalLimit
@@ -21,7 +22,8 @@ class Server:
 
     def getScript(self) -> str:
         data = {
-            "{{HOST_NAME}}": f"var NombreHost = \"{self.hostName}\"",
+            "{{HOST_NAME}}": f"var NombreHost = \"{self.hostName}\";",
+            "{{ADMIN_PASSWORD}}": f"var ClaveParaSerAdmin = \"{self.adminPassword}\";",
             "{{TOKEN}}": f"token: \"{self.getToken()}\",",
             "{{STADIUM}}": f"var MapaPorDefecto = \"{self.stadium.value}\";",
             "{{GAMETIME}}": f"var TiempoDeJuego = {self.gameTime};",

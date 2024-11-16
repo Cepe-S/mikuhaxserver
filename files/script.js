@@ -7,7 +7,7 @@ window.onHBLoaded = () => {
     var CantidadDeJugadores = 30;  		// Cantidad máxima de jugadores que permitirás ingresar a tu Host. Puedes elegir entre 1 y 30 jugadores
     
     
-    var ClaveParaSerAdmin = "yoadmin";  	// Clave para ser administrador. Pon la contraseña entre comillas.
+    var ClaveParaSerAdmin = "holasoyadmin";  	// Clave para ser administrador. Pon la contraseña entre comillas. // {{ADMIN_PASSWORD}}
     
     
     var MapaPorDefecto = "Futsal x7"; // {{STADIUM}} // OPCIONES: Futsal x2, Futsal x3, Futsal x4, Futsal x5, Futsal x5 cesped, Futsal x7, Real Soccer, Real Soccer Evo, Real Futsal, Entrenamiento, Basquet, Mini RS, Campeones, Premios, Big, Voley 2d, Voley 3d, Escuela, Skate, Handball, Tenis Ladrillo, Tenis Pasto, Tenis Cemento, RS Realista, RS Oveja, Penales Red, Penales Blue, 2 Man, 3 Man, 4 Man, 5 Man, 6 Man, 7 Man, 8 Man
