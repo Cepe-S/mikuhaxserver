@@ -43,8 +43,10 @@ class Manager:
                 sleep(3)
             self.ui.toConsole("Driver checked", outType=outType.PROGRAM, bold=False)
 
+            script = self.server.getScript()
+
             while not self.serverLink:
-                self.driver.runScript(self.server.getScript())
+                self.driver.runScript(script)
                 self.ui.toConsole("Script ejecuted", outType.PROGRAM, False)
 
                 sleep(3)
@@ -52,10 +54,12 @@ class Manager:
                 self.serverLink = self.server.getServerLink(self.driver)
                 if not self.serverLink:
                     self.ui.toConsole(f"Can't find server link ~(>_<。)＼, trying again...", outType.ERROR, True)
-                    self.restartDriver()
+                    self.driver.refreshPage()
+                    sleep(3)
 
             self.ui.toConsole(f"Link found: {self.serverLink}", outType.PROGRAM, True)
 
+            self.driver.minimizeWindow() # maybe it helps?
             self.isServerRunning = True
 
             self.doctor = Doctor(self.serverLink, self.server.adminPassword, self.logger)

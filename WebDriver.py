@@ -90,6 +90,12 @@ class WebDriver:
     def getPage(self, page: str):
         self.wd.get(page)
 
+    def refreshPage(self):
+        self.wd.refresh()
+
+    def minimizeWindow(self):
+        self.wd.minimize_window()
+
     def runScript(self, script: str):
         self.wd.execute_script(script)
 
