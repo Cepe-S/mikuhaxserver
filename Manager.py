@@ -38,12 +38,13 @@ class Manager:
             self.scheduler.start()
             self.ui.toConsole("Logger executed", outType.PROGRAM, False)
 
-            while not self.driver.isDriverAlive():
-                self.ui.toConsole("The driver is not responding, trying again...", outType=outType.ERROR, bold=True)
-                sleep(3)
-            self.ui.toConsole("Driver checked", outType=outType.PROGRAM, bold=False)
+            # while not self.driver.isDriverAlive():
+            #     self.ui.toConsole("The driver is not responding, trying again...", outType=outType.ERROR, bold=True)
+            #     sleep(3)
+            # self.ui.toConsole("Driver checked", outType=outType.PROGRAM, bold=False)
 
             script = self.server.getScript()
+            sleep(5)
 
             while not self.serverLink:
                 self.driver.runScript(script)

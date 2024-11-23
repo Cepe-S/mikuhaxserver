@@ -1,4 +1,4 @@
-window.onHBLoaded = () => {
+
     // ▇▇▇▇▇▇▇▇▇ ⚙️ CONFIGURACIÓN BÁSICA 😀 ▇▇▇▇▇▇▇▇▇
     
     var NombreHost = '🟦🟦🟦 miku server juegan todos 🟦🟦🟦' // {{HOST_NAME}} // Definimos el nombre del host (dentro de las comillas)
@@ -44412,5 +44412,4 @@ window.onHBLoaded = () => {
     
     // Para que los jugadores firmen: !firmo
     
-    }
     
