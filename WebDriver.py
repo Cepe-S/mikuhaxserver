@@ -13,6 +13,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.remote.command import Command
 
+from webdriver_manager.chrome import ChromeDriverManager
+
 import logging
 from sys import platform
 import os
@@ -76,8 +78,9 @@ class WebDriver:
         logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
         logging.getLogger('selenium.webdriver.chrome').setLevel(logging.CRITICAL)
 
-        if "linux" in platform and executablePath:
-            service = ChromeService(executable_path=executablePath, log_output=os.devnull)
+        if "linux" in platform:
+            executablePath = ChromeDriverManager().install()
+            service = webdriver.ChromeService(executable_path=executablePath, log_output=os.devnull)
         else:
             service = ChromeService(log_output=os.devnull)
 
