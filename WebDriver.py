@@ -117,10 +117,10 @@ class WebDriver:
         logging.getLogger('selenium.webdriver.firefox').setLevel(logging.CRITICAL)
 
         if "linux" in platform:
-            executablePath = GeckoManager.install()
+            executablePath = GeckoManager().install()
             service = webdriver.FirefoxService(executable_path=executablePath, log_output=os.devnull)
         else:
-            service = ChromeService(log_output=os.devnull)
+            service = webdriver.FirefoxService(log_output=os.devnull)
 
         self.wd = webdriver.Firefox(service=service, 
                                            options=options,
