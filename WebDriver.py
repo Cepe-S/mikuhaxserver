@@ -13,6 +13,10 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.remote.command import Command
 
+from selenium.webdriver.firefox.service import Service as FirefoxOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from webdriver_manager.firefox import GeckoDriverManager as GeckoManager
+
 from webdriver_manager.chrome import ChromeDriverManager
 
 import logging
@@ -21,11 +25,11 @@ import os
 
 DEFAULT_ARGUMENTS = ["--no-sandbox",
                      "--disable-dev-shm-usage",
-                     "--headless",
-                     "--log-level=3",
-                     "--silent",
-                     "--disable-logging",
-                     "--enable-unsafe-swiftshader",
+                    #  "--headless",
+                    #  "--log-level=3",
+                    #  "--silent",
+                    #  "--disable-logging",
+                    #  "--enable-unsafe-swiftshader",
                     #  '--disable-setuid-sandbox',
                     #  '--disable-features=WebRtcHideLocalIpsWithMdns',
                     #  '--disable-component-extensions-with-background-pages',
@@ -57,6 +61,40 @@ DEFAULT_ARGUMENTS = ["--no-sandbox",
 DEFAULT_PATH = "/usr/bin/chromedriver"
 
 class WebDriver:
+    # def __init__(self, arguments: List[str] = DEFAULT_ARGUMENTS, executablePath: str = DEFAULT_PATH, logger: Logs = None):
+    #     options = ChromeOptions()
+    #     for arg in arguments:
+    #         options.add_argument(arg)
+        
+    #     options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    #     options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
+    #     options.add_experimental_option("detach", True)
+
+    #     driverLogPath = "logs/driverLogs.txt"
+
+    #     driverLogger = logging.getLogger('selenium')
+    #     driverLogger.setLevel(logging.DEBUG)
+        
+    #     handler = logging.FileHandler(driverLogPath)
+    #     driverLogger.addHandler(handler)
+        
+    #     logging.getLogger('selenium.webdriver.remote').setLevel(logging.WARN)
+    #     logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
+    #     logging.getLogger('selenium.webdriver.chrome').setLevel(logging.CRITICAL)
+
+    #     if "linux" in platform:
+    #         executablePath = ChromeDriverManager().install()
+    #         service = webdriver.ChromeService(executable_path=executablePath, log_output=os.devnull)
+    #     else:
+    #         service = ChromeService(log_output=os.devnull)
+
+    #     self.wd = webdriver.Chrome(service=service, 
+    #                                options=options,
+    #                                keep_alive=True)
+
+    #     self.logger = logger
+
+
     def __init__(self, arguments: List[str] = DEFAULT_ARGUMENTS, executablePath: str = DEFAULT_PATH, logger: Logs = None):
         options = ChromeOptions()
         for arg in arguments:
@@ -76,17 +114,17 @@ class WebDriver:
         
         logging.getLogger('selenium.webdriver.remote').setLevel(logging.WARN)
         logging.getLogger('selenium.webdriver.common').setLevel(logging.DEBUG)
-        logging.getLogger('selenium.webdriver.chrome').setLevel(logging.CRITICAL)
+        logging.getLogger('selenium.webdriver.firefox').setLevel(logging.CRITICAL)
 
         if "linux" in platform:
-            executablePath = ChromeDriverManager().install()
-            service = webdriver.ChromeService(executable_path=executablePath, log_output=os.devnull)
+            executablePath = GeckoManager.install()
+            service = webdriver.FirefoxService(executable_path=executablePath, log_output=os.devnull)
         else:
             service = ChromeService(log_output=os.devnull)
 
-        self.wd = webdriver.Chrome(service=service, 
-                                   options=options,
-                                   keep_alive=True)
+        self.wd = webdriver.Firefox(service=service, 
+                                           options=options,
+                                           keep_alive=True)
 
         self.logger = logger
 
